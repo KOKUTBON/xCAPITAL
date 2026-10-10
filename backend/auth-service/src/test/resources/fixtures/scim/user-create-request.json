@@ -1,0 +1,28 @@
+{
+  "schemas": [
+    "urn:ietf:params:scim:schemas:core:2.0:User"
+  ],
+  "userName": "new.user@example.com",
+  "name": {
+    "givenName": "New",
+    "familyName": "User"
+  },
+  "emails": [
+    {
+      "value": "new.user@example.com",
+      "primary": true
+    }
+  ],
+  "active": true,
+  "roles": [
+    {
+      "value": "ADMIN"
+    }
+  ],
+  "groups": [
+    {
+      "display": "ADMIN",
+      "value": "ADMIN"
+    }
+  ]
+}

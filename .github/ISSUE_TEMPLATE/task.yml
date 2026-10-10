@@ -1,0 +1,57 @@
+name: Engineering task
+description: Internal implementation task tied to a milestone
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Primary ownership area.
+      options:
+        - area:backend
+        - area:frontend
+        - area:mobile
+        - area:ai
+        - area:docs
+        - area:devops
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - priority:P1
+        - priority:P2
+        - priority:P3
+    validations:
+      required: true
+  - type: input
+    id: owner
+    attributes:
+      label: Suggested owner
+      placeholder: task-owner
+    validations:
+      required: true
+  - type: input
+    id: milestone
+    attributes:
+      label: Milestone
+      description: e.g. M2 — Reliability & Test Coverage
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+    validations:
+      required: true
+  - type: textarea
+    id: checklist
+    attributes:
+      label: Checklist
+      placeholder: |
+        - [ ] Implementation
+        - [ ] Tests
+        - [ ] Docs
+    validations:
+      required: true

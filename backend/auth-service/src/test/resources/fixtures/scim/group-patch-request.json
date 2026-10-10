@@ -1,0 +1,13 @@
+{
+  "Operations": [
+    {
+      "op": "Add",
+      "path": "members",
+      "value": [
+        {
+          "value": "42"
+        }
+      ]
+    }
+  ]
+}

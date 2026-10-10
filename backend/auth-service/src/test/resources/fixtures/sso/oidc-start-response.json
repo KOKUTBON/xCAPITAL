@@ -1,0 +1,8 @@
+{
+  "authorizationUrl": "https://idp.example.com/authorize?state=state-oidc",
+  "state": "state-oidc",
+  "orgId": 42,
+  "orgSlug": "acme",
+  "providerType": "OIDC",
+  "redirect": false
+}

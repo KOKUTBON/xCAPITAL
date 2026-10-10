@@ -1,0 +1,165 @@
+{
+  "version": "0.1.0",
+  "generated_at": "2026-01-02T18:11:10.002834Z",
+  "disclaimer": "Educational and research tooling only. Not financial advice.",
+  "categories": [
+    {
+      "id": "portfolio_optimization",
+      "name": "Portfolio Optimization"
+    },
+    {
+      "id": "risk_metrics",
+      "name": "Risk Metrics"
+    },
+    {
+      "id": "covariance_estimation",
+      "name": "Covariance Estimation"
+    },
+    {
+      "id": "return_models",
+      "name": "Return Models"
+    },
+    {
+      "id": "volatility_models",
+      "name": "Volatility Models"
+    },
+    {
+      "id": "tails_dependence",
+      "name": "Tails & Dependence"
+    },
+    {
+      "id": "market_microstructure",
+      "name": "Transaction Costs & Microstructure"
+    },
+    {
+      "id": "control_rl",
+      "name": "Control & Reinforcement Learning"
+    }
+  ],
+  "formulas": [
+    {
+      "id": "mean_variance_markowitz",
+      "category": "portfolio_optimization",
+      "name": "Mean\u2013Variance (Markowitz)",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../Optimizers.optimizeMeanVariancePGD"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "mu",
+          "type": "vector",
+          "desc": "Expected returns"
+        },
+        {
+          "name": "Sigma",
+          "type": "matrix",
+          "desc": "Covariance matrix"
+        },
+        {
+          "name": "riskAversion",
+          "type": "float",
+          "desc": "Risk penalty"
+        },
+        {
+          "name": "constraints",
+          "type": "object",
+          "desc": "Boxed simplex constraints"
+        }
+      ],
+      "assumptions": [
+        "Quadratic risk model; covariance is stable over horizon",
+        "Long-only constraints (as configured)"
+      ],
+      "references": [
+        {
+          "type": "book",
+          "citation": "Harry Markowitz, Portfolio Selection, 1952/1959 (classic)"
+        }
+      ]
+    },
+    {
+      "id": "black_litterman",
+      "category": "portfolio_optimization",
+      "name": "Black\u2013Litterman Posterior",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../BlackLitterman.posterior"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "pi",
+          "type": "vector",
+          "desc": "Prior returns"
+        },
+        {
+          "name": "Sigma",
+          "type": "matrix",
+          "desc": "Prior covariance"
+        },
+        {
+          "name": "tau",
+          "type": "float",
+          "desc": "Scale factor"
+        },
+        {
+          "name": "P",
+          "type": "matrix",
+          "desc": "View matrix"
+        },
+        {
+          "name": "q",
+          "type": "vector",
+          "desc": "View returns"
+        },
+        {
+          "name": "Omega",
+          "type": "diag",
+          "desc": "View uncertainty"
+        }
+      ],
+      "references": [
+        {
+          "type": "paper",
+          "citation": "Black & Litterman (Goldman Sachs), 1991 (original)"
+        }
+      ]
+    },
+    {
+      "id": "risk_parity_erc",
+      "category": "portfolio_optimization",
+      "name": "Risk Parity / Equal Risk Contribution",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../Optimizers.optimizeRiskParity"
+        }
+      ],
+      "references": [
+        {
+          "type": "paper",
+          "citation": "Maillard, Roncalli, Teiletche (2010): The Properties of Equally Weighted Risk Contribution Portfolios"
+        }
+      ]
+    },
+    {
+      "id": "var_cvar_historical",
+      "category": "risk_metrics",
+      "name": "Historical VaR / CVaR (Expected Shortfall)",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../RiskController"
+        }
+      ]
+    }
+  ]
+}

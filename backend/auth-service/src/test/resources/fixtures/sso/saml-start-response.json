@@ -1,0 +1,8 @@
+{
+  "authorizationUrl": "https://idp.example.com/saml?RelayState=state-saml",
+  "state": "state-saml",
+  "orgId": 42,
+  "orgSlug": "acme",
+  "providerType": "SAML",
+  "redirect": false
+}

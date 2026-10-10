@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+title: "xCAPITAL"
+message: "If you use this project in research, please cite it using this metadata."
+type: software
+authors:
+  - family-names: "Doda"
+    given-names: "Rei"
+repository-code: "https://github.com/KOKUTBON/xCAPITAL"
+license: "Apache-2.0"
+url: "https://github.com/KOKUTBON/xCAPITAL"
+abstract: "Investment platform for portfolio analysis, risk controls, trade proposal review, and simulation."
+keywords:
+  - ai investing
+  - automated investing
+  - algorithmic trading
+  - portfolio management
+  - wealth management
+  - fintech

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="xCAPITAL">
+  <defs>
+    <linearGradient id="xc-rise" x1="12" y1="52" x2="52" y2="12" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7C5CFF"/>
+      <stop offset="1" stop-color="#3EE6D2"/>
+    </linearGradient>
+    <radialGradient id="xc-glow" cx="0.75" cy="0.2" r="0.9">
+      <stop offset="0" stop-color="#1B2142"/>
+      <stop offset="1" stop-color="#070A12"/>
+    </radialGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="url(#xc-glow)"/>
+  <rect x="0.75" y="0.75" width="62.5" height="62.5" rx="15.25" fill="none" stroke="#FFFFFF" stroke-opacity="0.08" stroke-width="1.5"/>
+  <path d="M17.5 17.5 26 26 M38 38l8.5 8.5" fill="none" stroke="#E8ECF6" stroke-width="6.5" stroke-linecap="round"/>
+  <path d="M17.5 46.5 44 20 M31 18.5h14.5V33" fill="none" stroke="url(#xc-rise)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

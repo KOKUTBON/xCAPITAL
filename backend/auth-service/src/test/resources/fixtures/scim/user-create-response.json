@@ -1,0 +1,22 @@
+{
+  "schemas": [
+    "urn:ietf:params:scim:schemas:core:2.0:User"
+  ],
+  "id": "42",
+  "userName": "new.user@example.com",
+  "active": true,
+  "emails": [
+    {
+      "value": "new.user@example.com",
+      "primary": true
+    }
+  ],
+  "roles": [
+    {
+      "value": "ADMIN"
+    }
+  ],
+  "meta": {
+    "resourceType": "User"
+  }
+}

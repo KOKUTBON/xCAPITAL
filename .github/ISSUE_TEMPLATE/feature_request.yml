@@ -1,0 +1,65 @@
+name: Feature request
+description: Propose a scoped enhancement
+labels:
+  - type:feature
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Primary ownership area.
+      options:
+        - area:backend
+        - area:frontend
+        - area:mobile
+        - area:ai
+        - area:docs
+        - area:devops
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - priority:P1
+        - priority:P2
+        - priority:P3
+    validations:
+      required: true
+  - type: input
+    id: owner
+    attributes:
+      label: Suggested owner
+      placeholder: feature-owner
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      description: What user/business problem is being solved?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe API/UI/data model changes.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: Provide testable outcomes.
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+  - type: textarea
+    id: out_of_scope
+    attributes:
+      label: Out of scope
+      description: Clarify what this issue will not include.

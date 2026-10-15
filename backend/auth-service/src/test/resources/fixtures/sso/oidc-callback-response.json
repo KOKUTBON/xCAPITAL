@@ -1,0 +1,13 @@
+{
+  "token": "jwt-token-value",
+  "roles": [
+    "USER"
+  ],
+  "orgId": 42,
+  "orgSlug": "acme",
+  "orgRoles": [
+    "ADMIN"
+  ],
+  "userId": 9001,
+  "email": "analyst@acme.test"
+}

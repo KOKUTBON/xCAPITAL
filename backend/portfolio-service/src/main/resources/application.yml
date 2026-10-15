@@ -1,0 +1,201 @@
+server:
+  port: ${SERVER_PORT:8082}
+
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/alphamath}
+    username: ${DATABASE_USER:alphamath}
+    password: ${DATABASE_PASSWORD:alphamath}
+  jpa:
+    hibernate:
+      ddl-auto: none
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+  flyway:
+    enabled: true
+    table: flyway_portfolio_history
+    baseline-on-migrate: true
+    baseline-version: 0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+logging:
+  pattern:
+    level: "%5p [traceId=%X{traceId} requestId=%X{requestId}]"
+
+alphamath:
+  jwt:
+    secret: ${JWT_SECRET:dev_change_me}
+  security:
+    mfa:
+      enforce: ${SECURITY_MFA_ENFORCE:false}
+    rbac:
+      enforce: ${SECURITY_RBAC_ENFORCE:false}
+  platform:
+    feeBps: ${PLATFORM_FEE_BPS:50}
+  trading:
+    policy:
+      maxSingleOrderPctEquity: ${TRADING_POLICY_MAX_ORDER_PCT:0.25}
+      maxSinglePositionPctEquity: ${TRADING_POLICY_MAX_POSITION_PCT:0.4}
+      minOrderNotional: ${TRADING_POLICY_MIN_NOTIONAL:10}
+      maxSingleOrderNotional: ${TRADING_POLICY_MAX_ORDER_NOTIONAL:250000}
+      maxGrossNotional: ${TRADING_POLICY_MAX_GROSS_NOTIONAL:500000}
+      maxNetNotional: ${TRADING_POLICY_MAX_NET_NOTIONAL:250000}
+      priceDeviationWarnPct: ${TRADING_POLICY_PRICE_DEV_WARN_PCT:0.1}
+      riskVolatilityWarn: ${TRADING_POLICY_RISK_VOL_WARN:0.08}
+      riskDrawdownWarn: ${TRADING_POLICY_RISK_DD_WARN:0.2}
+  ai:
+    baseUrl: ${AI_URL:http://localhost:8090}
+  marketdata:
+    quoteCacheTtlSeconds: ${MARKETDATA_QUOTE_CACHE_TTL:30}
+    entitlements:
+      enabled: ${MARKETDATA_ENTITLEMENTS_ENABLED:false}
+    csv:
+      enabled: ${MARKETDATA_CSV_ENABLED:true}
+      directory: ${MARKETDATA_CSV_DIR:./data/market}
+      source: ${MARKETDATA_CSV_SOURCE:csv}
+    http:
+      enabled: ${MARKETDATA_HTTP_ENABLED:false}
+      baseUrl: ${MARKETDATA_HTTP_BASE_URL:}
+      latestQuotesPath: ${MARKETDATA_HTTP_LATEST_QUOTES_PATH:/quotes/latest}
+      historyPath: ${MARKETDATA_HTTP_HISTORY_PATH:/history}
+      apiKeyHeader: ${MARKETDATA_HTTP_API_KEY_HEADER:X-API-KEY}
+      apiKey: ${MARKETDATA_HTTP_API_KEY:}
+      connectTimeoutMs: ${MARKETDATA_HTTP_CONNECT_TIMEOUT_MS:2000}
+      readTimeoutMs: ${MARKETDATA_HTTP_READ_TIMEOUT_MS:4000}
+      maxSymbolsPerRequest: ${MARKETDATA_HTTP_MAX_SYMBOLS:50}
+      rateLimitPerMinute: ${MARKETDATA_HTTP_RATE_LIMIT:120}
+      source: ${MARKETDATA_HTTP_SOURCE:http}
+    backfill:
+      enabled: ${MARKETDATA_BACKFILL_ENABLED:false}
+      delayMs: ${MARKETDATA_BACKFILL_DELAY_MS:3600000}
+      symbols: ${MARKETDATA_BACKFILL_SYMBOLS:}
+      lookbackDays: ${MARKETDATA_BACKFILL_LOOKBACK_DAYS:365}
+      granularity: ${MARKETDATA_BACKFILL_GRANULARITY:DAY}
+      source: ${MARKETDATA_BACKFILL_SOURCE:csv}
+      limit: ${MARKETDATA_BACKFILL_LIMIT:0}
+    license-catalog:
+      http:
+        enabled: ${MARKETDATA_LICENSE_CATALOG_HTTP_ENABLED:false}
+        baseUrl: ${MARKETDATA_LICENSE_CATALOG_BASE_URL:}
+        catalogPath: ${MARKETDATA_LICENSE_CATALOG_PATH:/licenses/catalog}
+        apiKeyHeader: ${MARKETDATA_LICENSE_CATALOG_API_KEY_HEADER:X-API-KEY}
+        apiKey: ${MARKETDATA_LICENSE_CATALOG_API_KEY:}
+        bearerToken: ${MARKETDATA_LICENSE_CATALOG_BEARER_TOKEN:}
+        basicUser: ${MARKETDATA_LICENSE_CATALOG_BASIC_USER:}
+        basicPassword: ${MARKETDATA_LICENSE_CATALOG_BASIC_PASSWORD:}
+        signatureHeader: ${MARKETDATA_LICENSE_CATALOG_SIGNATURE_HEADER:X-Webhook-Signature}
+        signatureSecret: ${MARKETDATA_LICENSE_CATALOG_SIGNATURE_SECRET:}
+        userAgent: ${MARKETDATA_LICENSE_CATALOG_USER_AGENT:xCAPITAL-MarketData/1.0}
+        connectTimeoutMs: ${MARKETDATA_LICENSE_CATALOG_CONNECT_TIMEOUT_MS:2000}
+        readTimeoutMs: ${MARKETDATA_LICENSE_CATALOG_READ_TIMEOUT_MS:5000}
+  autoinvest:
+    schedulerDelayMs: ${AUTOINVEST_SCHEDULER_DELAY_MS:60000}
+    minReturns: ${AUTOINVEST_MIN_RETURNS:30}
+    defaultLookback: ${AUTOINVEST_DEFAULT_LOOKBACK:90}
+    driftIdempotencyHours: ${AUTOINVEST_DRIFT_IDEMPOTENCY_HOURS:6}
+    minimumBalance: ${AUTOINVEST_MINIMUM_BALANCE:500}
+    advisoryFeeBpsAnnual: ${AUTOINVEST_ADVISORY_FEE_BPS_ANNUAL:35}
+    advisoryFeeChargeDays: ${AUTOINVEST_ADVISORY_FEE_CHARGE_DAYS:90}
+  banking:
+    defaultCurrency: ${BANKING_DEFAULT_CURRENCY:USD}
+  wealthplan:
+    simulations: ${WEALTHPLAN_SIMULATIONS:1000}
+    defaultReturn: ${WEALTHPLAN_DEFAULT_RETURN:0.06}
+    defaultVolatility: ${WEALTHPLAN_DEFAULT_VOLATILITY:0.12}
+  research:
+    proprietaryMock: ${RESEARCH_PROPRIETARY_MOCK:true}
+  rewards:
+    evalDelayMs: ${REWARDS_EVAL_DELAY_MS:3600000}
+  surveillance:
+    largeOrderNotional: ${SURVEILLANCE_LARGE_ORDER_NOTIONAL:100000}
+    maxOrdersPerProposal: ${SURVEILLANCE_MAX_ORDERS:20}
+  notifications:
+    delivery:
+      enabled: ${NOTIFICATION_DELIVERY_ENABLED:true}
+      pollDelayMs: ${NOTIFICATION_DELIVERY_POLL_DELAY_MS:10000}
+      maxAttempts: ${NOTIFICATION_DELIVERY_MAX_ATTEMPTS:5}
+      baseDelaySeconds: ${NOTIFICATION_DELIVERY_BASE_DELAY_SECONDS:30}
+      maxDelaySeconds: ${NOTIFICATION_DELIVERY_MAX_DELAY_SECONDS:3600}
+      batchSize: ${NOTIFICATION_DELIVERY_BATCH_SIZE:100}
+      email:
+        enabled: ${NOTIFICATION_EMAIL_ENABLED:true}
+        provider: ${NOTIFICATION_EMAIL_PROVIDER:smtp-email}
+      sms:
+        enabled: ${NOTIFICATION_SMS_ENABLED:true}
+        provider: ${NOTIFICATION_SMS_PROVIDER:http-sms}
+      push:
+        enabled: ${NOTIFICATION_PUSH_ENABLED:true}
+        provider: ${NOTIFICATION_PUSH_PROVIDER:http-push}
+      webhook:
+        enabled: ${NOTIFICATION_WEBHOOK_ENABLED:true}
+        provider: ${NOTIFICATION_WEBHOOK_PROVIDER:http-webhook}
+    smtp:
+      enabled: ${NOTIFICATION_SMTP_ENABLED:false}
+      host: ${NOTIFICATION_SMTP_HOST:}
+      port: ${NOTIFICATION_SMTP_PORT:587}
+      username: ${NOTIFICATION_SMTP_USERNAME:}
+      password: ${NOTIFICATION_SMTP_PASSWORD:}
+      fromAddress: ${NOTIFICATION_SMTP_FROM_ADDRESS:noreply@xcapital.local}
+      fromName: ${NOTIFICATION_SMTP_FROM_NAME:xCAPITAL}
+      startTls: ${NOTIFICATION_SMTP_STARTTLS:true}
+      connectTimeoutMs: ${NOTIFICATION_SMTP_CONNECT_TIMEOUT_MS:5000}
+      readTimeoutMs: ${NOTIFICATION_SMTP_READ_TIMEOUT_MS:5000}
+    webhook:
+      enabled: ${NOTIFICATION_WEBHOOK_HTTP_ENABLED:false}
+      connectTimeoutMs: ${NOTIFICATION_WEBHOOK_CONNECT_TIMEOUT_MS:2000}
+      readTimeoutMs: ${NOTIFICATION_WEBHOOK_READ_TIMEOUT_MS:5000}
+      signatureHeader: ${NOTIFICATION_WEBHOOK_SIGNATURE_HEADER:X-Webhook-Signature}
+      signatureSecret: ${NOTIFICATION_WEBHOOK_SIGNATURE_SECRET:}
+      userAgent: ${NOTIFICATION_WEBHOOK_USER_AGENT:xCAPITAL-Notifier/1.0}
+    sms:
+      enabled: ${NOTIFICATION_SMS_HTTP_ENABLED:false}
+      baseUrl: ${NOTIFICATION_SMS_BASE_URL:}
+      sendPath: ${NOTIFICATION_SMS_SEND_PATH:/sms/send}
+      apiKeyHeader: ${NOTIFICATION_SMS_API_KEY_HEADER:X-API-KEY}
+      apiKey: ${NOTIFICATION_SMS_API_KEY:}
+      bearerToken: ${NOTIFICATION_SMS_BEARER_TOKEN:}
+      basicUser: ${NOTIFICATION_SMS_BASIC_USER:}
+      basicPassword: ${NOTIFICATION_SMS_BASIC_PASSWORD:}
+      signatureHeader: ${NOTIFICATION_SMS_SIGNATURE_HEADER:X-Webhook-Signature}
+      signatureSecret: ${NOTIFICATION_SMS_SIGNATURE_SECRET:}
+      userAgent: ${NOTIFICATION_SMS_USER_AGENT:xCAPITAL-Notifier/1.0}
+      connectTimeoutMs: ${NOTIFICATION_SMS_CONNECT_TIMEOUT_MS:2000}
+      readTimeoutMs: ${NOTIFICATION_SMS_READ_TIMEOUT_MS:5000}
+    push:
+      enabled: ${NOTIFICATION_PUSH_HTTP_ENABLED:false}
+      baseUrl: ${NOTIFICATION_PUSH_BASE_URL:}
+      sendPath: ${NOTIFICATION_PUSH_SEND_PATH:/push/send}
+      apiKeyHeader: ${NOTIFICATION_PUSH_API_KEY_HEADER:X-API-KEY}
+      apiKey: ${NOTIFICATION_PUSH_API_KEY:}
+      bearerToken: ${NOTIFICATION_PUSH_BEARER_TOKEN:}
+      basicUser: ${NOTIFICATION_PUSH_BASIC_USER:}
+      basicPassword: ${NOTIFICATION_PUSH_BASIC_PASSWORD:}
+      signatureHeader: ${NOTIFICATION_PUSH_SIGNATURE_HEADER:X-Webhook-Signature}
+      signatureSecret: ${NOTIFICATION_PUSH_SIGNATURE_SECRET:}
+      userAgent: ${NOTIFICATION_PUSH_USER_AGENT:xCAPITAL-Notifier/1.0}
+      connectTimeoutMs: ${NOTIFICATION_PUSH_CONNECT_TIMEOUT_MS:2000}
+      readTimeoutMs: ${NOTIFICATION_PUSH_READ_TIMEOUT_MS:5000}
+  brokers:
+    http:
+      enabled: ${BROKER_HTTP_ENABLED:false}
+      providers: {}
+  funding:
+    http:
+      enabled: ${FUNDING_HTTP_ENABLED:false}
+      providers: {}
+  statements:
+    http:
+      enabled: ${STATEMENT_HTTP_ENABLED:false}
+      providers: {}
+  reference:
+    calendar:
+      http:
+        enabled: ${REFERENCE_CALENDAR_HTTP_ENABLED:false}
+        providers: {}

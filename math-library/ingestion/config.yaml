@@ -1,0 +1,23 @@
+version: 0.1
+sources:
+  arxiv:
+    enabled: true
+    base_url: "http://export.arxiv.org/api/query"
+    # Queries tuned for investments + mathematical finance + ML-in-finance
+    queries:
+      - name: "qfin-portfolio-risk"
+        q: "cat:q-fin.PM OR cat:q-fin.RM"
+        tags: ["q-fin", "portfolio", "risk"]
+      - name: "ml-finance"
+        q: "cat:stat.ML OR cat:cs.LG"
+        tags: ["ml", "forecasting", "optimization"]
+    max_results_per_query: 50
+    sort_by: "submittedDate"
+    sort_order: "descending"
+    # how many days back to ingest each run
+    lookback_days: 7
+outputs:
+  papers_inbox_dir: "math-library/papers/inbox"
+  registry_path: "math-library/registry/formulas.json"
+  stubs_dir_java: "math-library/plugins/java/generated"
+  stubs_dir_python: "math-library/plugins/python/generated"

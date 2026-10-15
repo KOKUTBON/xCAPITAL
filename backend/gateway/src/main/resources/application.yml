@@ -1,0 +1,154 @@
+server:
+  port: ${SERVER_PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+alphamath:
+  jwt:
+    secret: ${JWT_SECRET:dev_change_me}
+
+services:
+  auth: ${AUTH_URL:http://localhost:8081}
+  portfolio: ${PORTFOLIO_URL:http://localhost:8082}
+  ai: ${AI_URL:http://localhost:8090}
+  simulation: ${SIMULATION_URL:http://localhost:8083}
+
+spring:
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      timeout: ${REDIS_TIMEOUT_MS:2000}
+  cloud:
+    gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Credentials Access-Control-Allow-Origin
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: ${GATEWAY_RATELIMIT_REPLENISH:30}
+            redis-rate-limiter.burstCapacity: ${GATEWAY_RATELIMIT_BURST:60}
+            redis-rate-limiter.requestedTokens: ${GATEWAY_RATELIMIT_TOKENS:1}
+            key-resolver: "#{@userKeyResolver}"
+      routes:
+        - id: auth
+          uri: ${services.auth}
+          predicates:
+            - Path=/api/v1/auth/**
+        - id: scim
+          uri: ${services.auth}
+          predicates:
+            - Path=/api/v1/scim/**
+        - id: portfolio
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/portfolio/**
+        - id: risk
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/risk/**
+        - id: math
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/math/**
+        - id: registry
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/registry/**
+        - id: trade
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/trade/**
+        - id: auto-invest
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/auto-invest/**
+        - id: funding
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/funding/**
+        - id: banking
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/banking/**
+        - id: screeners
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/screeners/**
+        - id: wealth
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/wealth/**
+        - id: rewards
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/rewards/**
+        - id: surveillance
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/surveillance/**
+        - id: best-execution
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/best-execution/**
+        - id: compliance
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/compliance/**
+        - id: execution
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/execution/**
+        - id: audit
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/audit/**
+        - id: notifications
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/notifications/**
+        - id: market-data
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/market-data/**
+        - id: statements
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/statements/**
+        - id: research
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/research/**
+        - id: reference
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/reference/**
+        - id: watchlists
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/watchlists/**
+        - id: alerts
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/alerts/**
+        - id: admin
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/admin/**
+        - id: brokers
+          uri: ${services.portfolio}
+          predicates:
+            - Path=/api/v1/brokers/**
+        - id: ai
+          uri: ${services.ai}
+          predicates:
+            - Path=/api/v1/ai/**
+          filters:
+            - RewritePath=/api/v1/ai/(?<segment>.*), /v1/$\{segment}
+        - id: simulation
+          uri: ${services.simulation}
+          predicates:
+            - Path=/api/v1/simulation/**

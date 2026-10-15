@@ -1,0 +1,9 @@
+package com.alphamath.portfolio.infrastructure.persistence;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface ScreenerSecurityRepository extends JpaRepository<ScreenerSecurityEntity, String> {
+  List<ScreenerSecurityEntity> findAll();
+}

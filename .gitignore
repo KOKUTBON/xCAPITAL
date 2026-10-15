@@ -1,0 +1,136 @@
+# Operating system files
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+Thumbs.db
+
+# Editor / IDE
+.idea/
+.vscode/
+*.iml
+*.swp
+*.swo
+
+# AI development tools and assistant residue
+.claude/
+.codex/
+.cursor/
+.windsurf/
+.github/agents/
+
+# Environment configurations and safe templates
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Logs and temporary files
+*.log
+*.tmp
+logs/
+tmp/
+cache/
+
+# Java / Maven / Spring
+target/
+**/target/
+.mvn/wrapper/maven-wrapper.jar
+
+# Node / frontend
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Angular build cache
+.angular/
+**/.angular/
+
+# Flutter / Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+build/
+**/build/
+android/local.properties
+ios/Pods/
+
+# Python / virtual environments
+*.pyc
+__pycache__/
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
+
+# Coverage and test reports
+coverage/
+**/coverage/
+*.lcov
+reports/
+
+# Credentials, certificates, and private signing keys
+*.key
+*.pem
+*.p12
+*.pfx
+*.crt
+*.keystore
+*.jks
+*.mobileprovision
+*service-account*.json
+credentials/
+secrets/
+tokens/
+private/
+
+# Databases and storage dumps
+*.sqlite
+*.sqlite3
+*.db
+*.db-wal
+*.db-shm
+*.dump
+dumps/
+backups/
+
+# Local data and generated artifacts
+bin/
+obj/
+*.bak
+*.orig
+uploads/
+recordings/
+captures/
+embeddings/
+vector-db/
+model-cache/
+checkpoints/
+artifacts/
+output/
+outputs/
+.playwright-cli/
+
+# Project data: preserve documented synthetic sample fixtures only
+/data/market/*
+!/data/market/README.md
+!/data/market/AAPL.csv
+!/data/market/MSFT.csv
+
+# Local deployment records and private credentials
+.env.local
+.env.production
+*.pem
+*.key
+*.sqlite
+*.sqlite3
+*.db
+/data/private/
+/backups/

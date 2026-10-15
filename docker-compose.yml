@@ -1,0 +1,105 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: xcapital
+      POSTGRES_PASSWORD: xcapital
+      POSTGRES_DB: xcapital
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "127.0.0.1:6379:6379"
+
+  gateway:
+    build: ./backend/gateway
+    environment:
+      SERVER_PORT: 8080
+      JWT_SECRET: dev_change_me_please
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      AUTH_URL: http://auth:8081
+      PORTFOLIO_URL: http://portfolio:8082
+      AI_URL: http://ai:8090
+      SIMULATION_URL: http://simulation:8083
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      - auth
+      - portfolio
+      - ai
+      - simulation
+
+  auth:
+    build: ./backend/auth-service
+    environment:
+      SERVER_PORT: 8081
+      DATABASE_URL: jdbc:postgresql://postgres:5432/xcapital
+      DATABASE_USER: xcapital
+      DATABASE_PASSWORD: xcapital
+      JWT_SECRET: dev_change_me_please
+      AUTH_MFA_SECRET_KEY: dev_change_me_please_change
+    ports:
+      - "127.0.0.1:8081:8081"
+    depends_on:
+      - postgres
+
+  portfolio:
+    build: ./backend/portfolio-service
+    environment:
+      SERVER_PORT: 8082
+      DATABASE_URL: jdbc:postgresql://postgres:5432/xcapital
+      DATABASE_USER: xcapital
+      DATABASE_PASSWORD: xcapital
+      JWT_SECRET: dev_change_me_please
+      AI_URL: http://ai:8090
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      MARKETDATA_CSV_DIR: /data/market
+      MARKETDATA_CSV_ENABLED: "true"
+    ports:
+      - "127.0.0.1:8082:8082"
+    volumes:
+      - ./data/market:/data/market:ro
+    depends_on:
+      - postgres
+      - ai
+      - redis
+
+  simulation:
+    build: ./backend/simulation-service
+    environment:
+      SERVER_PORT: 8083
+      DATABASE_URL: jdbc:postgresql://postgres:5432/xcapital
+      DATABASE_USER: xcapital
+      DATABASE_PASSWORD: xcapital
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - "127.0.0.1:8083:8083"
+    depends_on:
+      - postgres
+      - redis
+
+  web:
+    build: ./frontend/web
+    environment:
+      # Gateway is the only public API surface
+      API_BASE_URL: http://localhost:8080
+    ports:
+      - "127.0.0.1:4200:80"
+    depends_on:
+      - gateway
+
+  ai:
+    build: ./ai/ai-service
+    ports:
+      - "127.0.0.1:8090:8090"
+    command: ["uvicorn","app.main:app","--host","0.0.0.0","--port","8090"]
+
+volumes:
+  dbdata:

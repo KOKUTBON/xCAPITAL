@@ -1,0 +1,6 @@
+vendor,service_owner,service_workflow,data_sensitivity,risk_tier,review_cadence,control_checks,stakeholders
+Example database,example-platform,Primary transactional persistence for auth/portfolio/simulation,RESTRICTED,CRITICAL,monthly,"backup restore drill;patch cadence;access review",operations|compliance
+Example cache,example-platform,Gateway rate limiting and simulation queue/cache,CONFIDENTIAL,HIGH,monthly,"persistence mode check;eviction policy review;auth config review",operations|backend
+Example mail provider,example-platform,Outbound email notifications and incident comms,CONFIDENTIAL,HIGH,quarterly,"credential rotation;delivery failure audit;provider SLA review",operations|compliance
+Example broker adapter,example-platform,Order routing and account synchronization,RESTRICTED,CRITICAL,monthly,"api key rotation;manual fallback drill;reconciliation control",operations|compliance
+Example market data provider,example-platform,External quote and historical market data ingestion,CONFIDENTIAL,HIGH,quarterly,"source entitlement audit;staleness monitoring;fallback source check",operations|risk

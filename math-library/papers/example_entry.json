@@ -1,0 +1,17 @@
+{
+  "id": "black_litterman_1991",
+  "type": "paper",
+  "title": "Global Portfolio Optimization (Black\u2013Litterman)",
+  "authors": [
+    "Fischer Black",
+    "Robert Litterman"
+  ],
+  "year": 1991,
+  "tags": [
+    "portfolio_optimization",
+    "bayesian",
+    "views"
+  ],
+  "notes": "Classic BL posterior framework used for combining prior returns and subjective views.",
+  "links": []
+}

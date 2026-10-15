@@ -1,0 +1,360 @@
+{
+  "version": "0.1.0",
+  "generated_at": "2026-01-02T18:11:10.002834Z",
+  "disclaimer": "Educational and research tooling only. Not financial advice.",
+  "categories": [
+    {
+      "id": "portfolio_optimization",
+      "name": "Portfolio Optimization"
+    },
+    {
+      "id": "risk_metrics",
+      "name": "Risk Metrics"
+    },
+    {
+      "id": "covariance_estimation",
+      "name": "Covariance Estimation"
+    },
+    {
+      "id": "return_models",
+      "name": "Return Models"
+    },
+    {
+      "id": "volatility_models",
+      "name": "Volatility Models"
+    },
+    {
+      "id": "tails_dependence",
+      "name": "Tails & Dependence"
+    },
+    {
+      "id": "market_microstructure",
+      "name": "Transaction Costs & Microstructure"
+    },
+    {
+      "id": "control_rl",
+      "name": "Control & Reinforcement Learning"
+    }
+  ],
+  "formulas": [
+    {
+      "id": "mean_variance_markowitz",
+      "category": "portfolio_optimization",
+      "name": "Mean\u2013Variance (Markowitz)",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../Optimizers.optimizeMeanVariancePGD"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "mu",
+          "type": "vector",
+          "desc": "Expected returns"
+        },
+        {
+          "name": "Sigma",
+          "type": "matrix",
+          "desc": "Covariance matrix"
+        },
+        {
+          "name": "riskAversion",
+          "type": "float",
+          "desc": "Risk penalty"
+        },
+        {
+          "name": "constraints",
+          "type": "object",
+          "desc": "Boxed simplex constraints"
+        }
+      ],
+      "assumptions": [
+        "Quadratic risk model; covariance is stable over horizon",
+        "Long-only constraints (as configured)"
+      ],
+      "references": [
+        {
+          "type": "book",
+          "citation": "Harry Markowitz, Portfolio Selection, 1952/1959 (classic)"
+        }
+      ]
+    },
+    {
+      "id": "black_litterman",
+      "category": "portfolio_optimization",
+      "name": "Black\u2013Litterman Posterior",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../BlackLitterman.posterior"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "pi",
+          "type": "vector",
+          "desc": "Prior returns"
+        },
+        {
+          "name": "Sigma",
+          "type": "matrix",
+          "desc": "Prior covariance"
+        },
+        {
+          "name": "tau",
+          "type": "float",
+          "desc": "Scale factor"
+        },
+        {
+          "name": "P",
+          "type": "matrix",
+          "desc": "View matrix"
+        },
+        {
+          "name": "q",
+          "type": "vector",
+          "desc": "View returns"
+        },
+        {
+          "name": "Omega",
+          "type": "diag",
+          "desc": "View uncertainty"
+        }
+      ],
+      "references": [
+        {
+          "type": "paper",
+          "citation": "Black & Litterman (Goldman Sachs), 1991 (original)"
+        }
+      ]
+    },
+    {
+      "id": "risk_parity_erc",
+      "category": "portfolio_optimization",
+      "name": "Risk Parity / Equal Risk Contribution",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../Optimizers.optimizeRiskParity"
+        }
+      ],
+      "references": [
+        {
+          "type": "paper",
+          "citation": "Maillard, Roncalli, Teiletche (2010): The Properties of Equally Weighted Risk Contribution Portfolios"
+        }
+      ]
+    },
+    {
+      "id": "min_variance",
+      "category": "portfolio_optimization",
+      "name": "Minimum Variance (Long-only, Boxed Simplex)",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../Optimizers.optimizeMinVariance"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "Sigma",
+          "type": "matrix",
+          "desc": "Covariance matrix"
+        },
+        {
+          "name": "constraints",
+          "type": "object",
+          "desc": "Boxed simplex constraints"
+        }
+      ]
+    },
+    {
+      "id": "kelly_approx",
+      "category": "portfolio_optimization",
+      "name": "Kelly Criterion (Quadratic Approx)",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../Optimizers.optimizeKellyApprox"
+        }
+      ],
+      "parameters": [
+        {
+          "name": "mu",
+          "type": "vector",
+          "desc": "Expected returns"
+        },
+        {
+          "name": "Sigma",
+          "type": "matrix",
+          "desc": "Covariance matrix"
+        },
+        {
+          "name": "fractionalKelly",
+          "type": "float",
+          "desc": "Kelly scaling factor"
+        }
+      ]
+    },
+    {
+      "id": "max_diversification",
+      "category": "portfolio_optimization",
+      "name": "Maximum Diversification Ratio",
+      "status": "planned",
+      "notes": "Maximize weighted average volatility divided by portfolio volatility."
+    },
+    {
+      "id": "cvar_optimization",
+      "category": "portfolio_optimization",
+      "name": "CVaR / Expected Shortfall Optimization",
+      "status": "planned",
+      "notes": "Linear programming formulation with tail-loss constraints."
+    },
+    {
+      "id": "hierarchical_risk_parity",
+      "category": "portfolio_optimization",
+      "name": "Hierarchical Risk Parity (HRP)",
+      "status": "planned",
+      "notes": "Cluster assets and allocate recursively to reduce estimation error."
+    },
+    {
+      "id": "sample_covariance",
+      "category": "covariance_estimation",
+      "name": "Sample Covariance",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../CovarianceEstimators.sampleCov"
+        }
+      ]
+    },
+    {
+      "id": "ewma_covariance",
+      "category": "covariance_estimation",
+      "name": "EWMA Covariance (RiskMetrics)",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../CovarianceEstimators.ewmaCov"
+        }
+      ]
+    },
+    {
+      "id": "shrinkage_to_diagonal",
+      "category": "covariance_estimation",
+      "name": "Shrinkage to Diagonal",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../CovarianceEstimators.shrinkToDiagonal"
+        }
+      ]
+    },
+    {
+      "id": "ledoit_wolf_shrinkage",
+      "category": "covariance_estimation",
+      "name": "Ledoit-Wolf Shrinkage",
+      "status": "planned",
+      "notes": "Closed-form shrinkage intensity for large-N covariance estimation."
+    },
+    {
+      "id": "garch_11",
+      "category": "volatility_models",
+      "name": "GARCH(1,1)",
+      "status": "planned"
+    },
+    {
+      "id": "fama_french_5",
+      "category": "return_models",
+      "name": "Fama-French 5-Factor Model",
+      "status": "planned"
+    },
+    {
+      "id": "almgren_chriss",
+      "category": "market_microstructure",
+      "name": "Almgren-Chriss Transaction Cost Model",
+      "status": "planned"
+    },
+    {
+      "id": "var_cvar_historical",
+      "category": "risk_metrics",
+      "name": "Historical VaR / CVaR (Expected Shortfall)",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../RiskController"
+        }
+      ]
+    },
+    {
+      "id": "sharpe_ratio",
+      "category": "risk_metrics",
+      "name": "Sharpe Ratio",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../RiskController"
+        }
+      ]
+    },
+    {
+      "id": "sortino_ratio",
+      "category": "risk_metrics",
+      "name": "Sortino Ratio",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../RiskController"
+        }
+      ]
+    },
+    {
+      "id": "max_drawdown",
+      "category": "risk_metrics",
+      "name": "Maximum Drawdown / Calmar Ratio",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../RiskController"
+        }
+      ]
+    },
+    {
+      "id": "cornish_fisher_var",
+      "category": "risk_metrics",
+      "name": "Cornish-Fisher VaR",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../RiskController"
+        }
+      ]
+    },
+    {
+      "id": "omega_ratio",
+      "category": "risk_metrics",
+      "name": "Omega Ratio",
+      "status": "implemented",
+      "implementations": [
+        {
+          "type": "java",
+          "path": "backend/portfolio-service/.../RiskController"
+        }
+      ]
+    }
+  ]
+}

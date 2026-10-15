@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640">
+  <defs>
+    <linearGradient id="sp-rise" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#7C5CFF"/>
+      <stop offset="1" stop-color="#3EE6D2"/>
+    </linearGradient>
+    <radialGradient id="sp-bg" cx="0.82" cy="0.1" r="1.1">
+      <stop offset="0" stop-color="#1A1F45"/>
+      <stop offset="0.55" stop-color="#090C18"/>
+      <stop offset="1" stop-color="#05070D"/>
+    </radialGradient>
+    <pattern id="sp-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" fill="none" stroke="#FFFFFF" stroke-opacity="0.04"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="640" fill="url(#sp-bg)"/>
+  <rect width="1280" height="640" fill="url(#sp-grid)"/>
+  <path d="M520 640 C700 630 820 560 920 540 S1060 420 1130 360 1220 250 1280 210 V640Z" fill="url(#sp-rise)" opacity="0.10"/>
+  <path d="M520 640 C700 630 820 560 920 540 S1060 420 1130 360 1220 250 1280 210" fill="none" stroke="url(#sp-rise)" stroke-width="4"/>
+  <g transform="translate(96 120) scale(1.6)">
+    <rect width="64" height="64" rx="16" fill="#0B0F1F" stroke="#FFFFFF" stroke-opacity="0.12"/>
+    <path d="M17.5 17.5 26 26 M38 38l8.5 8.5" fill="none" stroke="#E8ECF6" stroke-width="6.5" stroke-linecap="round"/>
+    <path d="M17.5 46.5 44 20 M31 18.5h14.5V33" fill="none" stroke="url(#sp-rise)" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="96" y="340" font-family="'Space Grotesk','Inter',Helvetica,Arial,sans-serif" font-size="104" font-weight="700" letter-spacing="3" fill="#F1F4FB"><tspan fill="#3EE6D2">x</tspan>CAPITAL</text>
+  <text x="100" y="406" font-family="'Inter',Helvetica,Arial,sans-serif" font-size="34" font-weight="500" fill="#AEB7CC">The financial operating system for modern companies.</text>
+  <text x="100" y="500" font-family="'JetBrains Mono',Menlo,monospace" font-size="22" fill="#7C86A2" letter-spacing="2">TREASURY · FORECAST · GUARD · CAPITAL · AI</text>
+</svg>

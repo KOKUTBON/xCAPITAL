@@ -1,0 +1,46 @@
+server:
+  port: ${SERVER_PORT:8081}
+
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/alphamath}
+    username: ${DATABASE_USER:alphamath}
+    password: ${DATABASE_PASSWORD:alphamath}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  pattern:
+    level: "%5p [traceId=%X{traceId} requestId=%X{requestId}]"
+
+alphamath:
+  jwt:
+    secret: ${JWT_SECRET:dev_change_me}
+    issuer: alphamath
+    ttlMinutes: 240
+    mfaChallengeTtlMinutes: 5
+  auth:
+    bootstrapAdmins: ${AUTH_BOOTSTRAP_ADMINS:}
+    mfa:
+      issuer: xCAPITAL
+      secretKey: ${AUTH_MFA_SECRET_KEY:dev_change_me_please_change}
+      digits: 6
+      periodSeconds: 30
+      skew: 1
+      algorithm: HmacSHA1
+  sso:
+    baseUrl: ${AUTH_SSO_BASE_URL:http://localhost:8081}
+    entityId: ${AUTH_SSO_ENTITY_ID:urn:alphamath:xcapital}
+    sessionTtlMinutes: ${AUTH_SSO_SESSION_TTL:10}

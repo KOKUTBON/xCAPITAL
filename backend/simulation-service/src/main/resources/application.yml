@@ -1,0 +1,49 @@
+server:
+  port: ${SERVER_PORT:8083}
+
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/xcapital}
+    username: ${DATABASE_USER:xcapital}
+    password: ${DATABASE_PASSWORD:xcapital}
+  jpa:
+    hibernate:
+      ddl-auto: none
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+  flyway:
+    enabled: true
+    table: flyway_simulation_history
+    baseline-on-migrate: true
+    baseline-version: 0
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+logging:
+  pattern:
+    level: "%5p [traceId=%X{traceId} requestId=%X{requestId}]"
+
+simulation:
+  queue:
+    stream: ${SIMULATION_QUEUE_STREAM:simulation_jobs}
+    group: ${SIMULATION_QUEUE_GROUP:simulation-workers}
+  worker:
+    maxConcurrency: ${SIMULATION_WORKER_MAX_CONCURRENCY:4}
+    pollBatchSize: ${SIMULATION_WORKER_POLL_BATCH_SIZE:10}
+    blockMs: ${SIMULATION_WORKER_BLOCK_MS:200}
+    executorQueueCapacity: ${SIMULATION_WORKER_EXECUTOR_QUEUE_CAPACITY:100}
+    maxQueueDepth: ${SIMULATION_WORKER_MAX_QUEUE_DEPTH:500}
+    maxAttempts: ${SIMULATION_WORKER_MAX_ATTEMPTS:3}
+    staleAfterMinutes: ${SIMULATION_WORKER_STALE_AFTER_MINUTES:30}
+    delay-ms: ${SIMULATION_WORKER_DELAY_MS:1000}
+    recovery-delay-ms: ${SIMULATION_WORKER_RECOVERY_DELAY_MS:60000}
+  quota:
+    maxPendingPerUser: ${SIMULATION_QUOTA_MAX_PENDING:20}
+    maxRunningPerUser: ${SIMULATION_QUOTA_MAX_RUNNING:2}
+    maxActivePerUser: ${SIMULATION_QUOTA_MAX_ACTIVE:25}
